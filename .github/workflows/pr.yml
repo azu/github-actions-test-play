@@ -28,9 +28,8 @@ jobs:
               repo: context.repo.repo,
               body: 'HELLO!'
             })
-      - uses: actions/checkout@v2
-      - if: github.event_name == 'push'
       - name: Create commits
+        if: github.event_name == 'push'
         run: |
           git config user.name 'Peter Evans'
           git config user.email 'peter-evans@users.noreply.github.com'
