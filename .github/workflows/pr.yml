@@ -4,7 +4,6 @@ jobs:
   welcome:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       pull-requests: write
     steps:
       - name: checkout
@@ -29,10 +28,17 @@ jobs:
               repo: context.repo.repo,
               body: 'HELLO!'
             })
-      - run: echo "123" > ./up.txt
-      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
-        with:
-          add: '.'
-          branch: gh-pages
-          message: 'Your commit message'
-          push: true
+      - uses: actions/checkout@v2
+      - name: Create commits
+        run: |
+          git config user.name 'Peter Evans'
+          git config user.email 'peter-evans@users.noreply.github.com'
+          date +%s > report.txt
+          git commit -am "Modify tracked file during workflow"
+          date +%s > new-report.txt
+          git add -A
+          git commit -m "Add untracked file during workflow"
+      - name: Uncommitted change
+        run: date +%s > report.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
