@@ -1,5 +1,5 @@
 name: "PR COMMENT"
-on: [push,pull_request]
+on: [push]
 jobs:
   welcome:
     runs-on: ubuntu-latest
@@ -8,26 +8,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - uses: actions/github-script@v4
-        with:
-          script: |
-            const creator = context.payload.sender.login
-            const opts = github.issues.listForRepo.endpoint.merge({
-              ...context.issue,
-              creator,
-              state: 'all'
-            });
-            const issues = await github.paginate(opts)
-            console.log(issues);
-      - uses: actions/github-script@v4
-        with:
-          script: |
-            await github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'HELLO!'
-            })
       - name: Create commits
         if: github.event_name == 'push'
         run: |
