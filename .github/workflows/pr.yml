@@ -26,3 +26,10 @@ jobs:
               repo: context.repo.repo,
               body: 'HELLO!'
             })
+      - run: echo "123" > ./up.txt
+      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
+        with:
+          add: '.'
+          branch: some-branch
+          message: 'Your commit message'
+          push: true
