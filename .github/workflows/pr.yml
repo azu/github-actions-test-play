@@ -1,11 +1,15 @@
 name: "PR COMMENT"
 on: pull_request
 permissions:
-  pull-requests: write
+  pull-requests: read
 jobs:
   welcome:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
       - uses: actions/github-script@v4
         with:
           script: |
