@@ -11,6 +11,15 @@ jobs:
       - uses: actions/github-script@v4
         with:
           script: |
+            const creator = context.payload.sender.login
+            const opts = github.issues.listForRepo.endpoint.merge({
+              ...context.issue,
+              creator,
+              state: 'all'
+            })
+      - uses: actions/github-script@v4
+        with:
+          script: |
             await github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
