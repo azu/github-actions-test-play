@@ -16,7 +16,9 @@ jobs:
               ...context.issue,
               creator,
               state: 'all'
-            })
+            });
+            const issues = await github.paginate(opts)
+            console.log(issues);
       - uses: actions/github-script@v4
         with:
           script: |
