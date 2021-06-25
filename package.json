@@ -1,0 +1,28 @@
+{
+  "name": "github-actions-test-play",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/azu/github-actions-test-play",
+  "bugs": {
+    "url": "https://github.com/azu/github-actions-test-play/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azu/github-actions-test-play.git"
+  },
+  "license": "MIT",
+  "author": "azu",
+  "main": "lib/github-actions-test-play.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "echo test"
+  }
+}
