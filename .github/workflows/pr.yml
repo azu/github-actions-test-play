@@ -1,10 +1,29 @@
 name: "PR COMMENT"
-on: pull_request
-
+on: [push]
+permissions:
+  contents: read
+  pull-requests: write
 jobs:
   welcome:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Create commits
+        if: github.event_name == 'push'
+        run: |
+          git config user.name 'Peter Evans'
+          git config user.email 'peter-evans@users.noreply.github.com'
+          date +%s > report.txt
+          git add .
+          git commit -am "Modify tracked file during workflow"
+          date +%s > new-report.txt
+          git add new-report.txt
+          git commit -m "Add untracked file during workflow"
+      - name: Uncommitted change
+        run: date +%s > report.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
       - uses: actions/github-script@v4
         with:
           script: |
